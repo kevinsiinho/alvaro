@@ -1,0 +1,112 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Anteproyectos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-label>Pokémon Yellow-estado</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mega Man X</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+
+    </ion-list>
+
+
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Anteproyecto:Nombre usuario</ion-title>
+      <!--configuracion, salir, etc-->
+        <ion-list class="btn-2">
+          <ion-item>
+            <ion-icon color="primary" class="icono" name="caret-down">
+            <ion-select [(ngModel)]="op" interface="action-sheet" (ionChange)="opciones()">
+              <ion-select-option value="config">Configuración</ion-select-option>
+              <ion-select-option  value="cerrar">Cerrar sesión</ion-select-option>
+            </ion-select>
+            </ion-icon>
+          </ion-item>
+        </ion-list>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-textarea label="Titulo:" placeholder="Escribe tu titulo"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Descripción:" placeholder="Escribe descripcion"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Objetivo:" placeholder="Escribe tu objetivo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Justificacion:" placeholder="Escribe Justificacion"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Planteamiento:" placeholder="Escribe tu Planteamiento"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Hipótesis:" placeholder="Escribe tu Hipótesis"></ion-textarea>
+      </ion-item>
+      <ion-button id="open-modal" expand="full">Comentario</ion-button>
+      <ion-button fill="clear" expand="full" (click)="abrirAlerta()">Información del usuario</ion-button>
+    </ion-list>
+  </ion-content>
+</div>
+
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Comentario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Escribe tu comentario aquí</ion-label>
+          <ion-textarea type="text" placeholder="Escribe" [(ngModel)]="name"></ion-textarea>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+<ion-alert
+#presentalert
+header="Información"
+[buttons]="alertButtons"
+[inputs]="alertInputs"
+></ion-alert>
+
+<ion-alert
+#presentalert2
+header="Información"
+[buttons]="alertButtons2"
+[inputs]="alertInputs2"
+></ion-alert>

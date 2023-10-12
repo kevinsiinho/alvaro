@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Anteproyecto</ion-title>
+    <ion-button (click)="abrir()" fill="clear" class="btn-notifiacion position-relative">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-badge class="cant">2</ion-badge>
+    </ion-button>
+  <ion-list *ngIf="mostrar">
+    <ion-item>1.Action</ion-item>
+    <ion-item>2.Another action</ion-item>
+    <ion-item>3.Something else here</ion-item>
+  </ion-list>
+<!--configuracion, salir, etc-->
+<ion-list class="btn-2">
+  <ion-item>
+    <ion-icon color="primary" class="icono" name="caret-down">
+    <ion-select [(ngModel)]="op" interface="action-sheet" (ionChange)="opciones()">
+      <ion-select-option value="config">Configuración</ion-select-option>
+      <ion-select-option  value="cerrar">Cerrar sesión</ion-select-option>
+    </ion-select>
+    </ion-icon>
+  </ion-item>
+</ion-list>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="list-form" [fullscreen]="true">
+  <ion-list class="lista2">
+    <ion-item>
+      <ion-input label="Titulo:" labelPlacement="floating" placeholder="Escribe tu titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Descripción:" labelPlacement="floating" placeholder="Escribe descripcion"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Objetivo:" labelPlacement="floating" placeholder="Escribe tu objetivo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Justificacion:" labelPlacement="floating" placeholder="Escribe Justificacion"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Planteamiento:" labelPlacement="floating" placeholder="Escribe tu Planteamiento"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Hipótesis:" labelPlacement="floating" placeholder="Escribe tu Hipótesis"></ion-textarea>
+    </ion-item>
+    <ion-button expand="full">Guardar</ion-button>
+  </ion-list>
+
+</ion-content>
+
+<ion-alert
+trigger="present-alert2"
+header="Información"
+[buttons]="alertButtons"
+[inputs]="alertInputs"
+></ion-alert>

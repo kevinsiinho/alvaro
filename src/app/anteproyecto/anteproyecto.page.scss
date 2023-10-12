@@ -1,0 +1,44 @@
+.btn-notificacion{
+  position: relative;
+}
+
+.cant{
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 8px;
+  border-radius: 50%;
+}
+
+.list-form{
+  z-index: 1;
+  position: relative;
+}
+
+ion-header{
+  position: absolute;
+  z-index: 50;
+}
+
+ion-select{
+  width: 10%;
+}
+
+.btn-2{
+  top: 10px;
+  right: 0;
+  position: absolute;
+  background-color: none;
+}
+
+.icono{
+  font-size: 25px;
+}
+
+.lista2{
+  margin-top: 90px;
+}
