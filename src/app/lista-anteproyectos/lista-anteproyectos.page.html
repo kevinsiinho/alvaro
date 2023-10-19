@@ -69,7 +69,7 @@
         <ion-textarea label="Hipótesis:" placeholder="Escribe tu Hipótesis"></ion-textarea>
       </ion-item>
       <ion-button id="open-modal" expand="full">Comentario</ion-button>
-      <ion-button fill="clear" expand="full" (click)="abrirAlerta()">Información del usuario</ion-button>
+      <ion-button fill="clear" expand="full" (click)="abrirAlerta()">Información del Estudiante</ion-button>
     </ion-list>
   </ion-content>
 </div>
@@ -99,14 +99,14 @@
 
 <ion-alert
 #presentalert
-header="Información"
+header="Datos del Estudiante"
 [buttons]="alertButtons"
 [inputs]="alertInputs"
 ></ion-alert>
 
 <ion-alert
 #presentalert2
-header="Información"
+header="Información de usuario"
 [buttons]="alertButtons2"
 [inputs]="alertInputs2"
 ></ion-alert>

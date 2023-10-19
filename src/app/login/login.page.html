@@ -9,20 +9,14 @@
     <ion-label class="label-sesion">Iniciar sesión</ion-label>
     <ion-item>
       <ion-label>EMAIL:</ion-label>
-      <ion-input type="email" placeholder="Ingresa el email" ></ion-input>
+      <ion-input type="email" placeholder="Ingresa el email" [(ngModel)]="login.email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>PASSWORD</ion-label>
-      <ion-input type="password:" placeholder="Ingresa tu contraseña"></ion-input>
+      <ion-input type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="login.password"></ion-input>
     </ion-item>
     <ion-button (click)="autenticar()" expand="block">Entrar</ion-button>
     </ion-list>
-    <ion-button fill="clear" expand="full" id="present-alert">Crear cuenta</ion-button>
+    <ion-button fill="clear" expand="full" (click)="presentAlert2()">Crear cuenta</ion-button>
 
-<ion-alert
-  trigger="present-alert"
-  header="Crear usuario"
-  [buttons]="alertButtons"
-  [inputs]="alertInputs"
-></ion-alert>
-</ion-content>
+  </ion-content>
