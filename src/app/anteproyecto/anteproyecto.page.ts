@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonAlert } from '@ionic/angular';
+import { IonAlert, IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-anteproyecto',
@@ -10,6 +11,8 @@ import { IonAlert } from '@ionic/angular';
 export class AnteproyectoPage implements OnInit {
   public op!:string;
   @ViewChild(IonAlert) alert!: IonAlert;
+  @ViewChild(IonModal) modal!: IonModal;
+  public titulo!:string
   constructor(private link:Router)
    { }
 
@@ -57,5 +60,34 @@ export class AnteproyectoPage implements OnInit {
       this.link.navigate(['login'])
     }
   }
+//parte para ante proyectos----------------------------------------------
+public items:any[]=[
+  {
+    titulo:"Titulo:",
+    texto:"",
+    estado:"Pendiente",
+  },
+  {
+    titulo:"Objetivos:",
+    texto:"",
+    estado:"Pendiente",
+  },
+  {
+    titulo:"Descrición:",
+    texto:"",
+    estado:"Pendiente",
+  },
+]
+
+cancel() {
+  this.modal.dismiss(null, 'cancel');
+}
+
+add(){
+   const temporal={titulo:this.titulo,texto:"",estado:"Pendiente"}
+   this.items.push(temporal)
+   this.titulo=""
+   console.log(this.items)
+}
 
 }
