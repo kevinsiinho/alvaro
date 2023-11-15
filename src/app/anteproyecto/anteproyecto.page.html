@@ -5,7 +5,7 @@
       <ion-icon name="notifications"></ion-icon>
     </ion-button>
   <ion-list *ngIf="mostrar">
-    <ion-item *ngFor="let item of this.anteproyecto.comentarios">{{item}}</ion-item>
+    <ion-item ></ion-item>
   </ion-list>
 <!--configuracion, salir, etc-->
 <ion-list class="btn-2">
@@ -23,13 +23,13 @@
 
 <ion-content class="list-form" [fullscreen]="true">
   <ion-list class="lista2">
-    <ion-item *ngFor="let item of this.items; let x=index">
-      <ion-button expand="full" color="danger"  (click)="eliminarItem(x)" *ngIf="this.eliminar===true">X</ion-button><ion-input label={{item.titulo}} labelPlacement="floating" [(ngModel)]="item.texto" placeholder="Escribe tu titulo"></ion-input>
+    <ion-item >
+      <ion-button expand="full" color="danger">X</ion-button><ion-input  labelPlacement="floating" placeholder="Escribe tu titulo"></ion-input>
     </ion-item>
     <ion-button expand="full" color="success" id="open-modal">Añadir item</ion-button>
-    <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
-    <ion-button expand="full" color="danger" (click)="MostrarEliminar()">Eliminar items</ion-button>
-    <ion-button expand="full" color="warning" (click)="setOpen(true)">Ayuda</ion-button>
+    <ion-button expand="full" >Guardar</ion-button>
+    <ion-button expand="full" color="danger" >Eliminar items</ion-button>
+    <ion-button expand="full" color="warning" >Ayuda</ion-button>
   </ion-list>
 
   <ion-modal trigger="open-modal">
@@ -46,11 +46,11 @@
        <ion-list class="formitems">
         <ion-item>
           <ion-input
-            label="Escribe el nombre del item" labelPlacement="stacked" type="text" placeholder="Escribre aquí" [(ngModel)]="this.titulo"
+            label="Escribe el nombre del item" labelPlacement="stacked" type="text" placeholder="Escribre aquí"
           ></ion-input>
         </ion-item>
       </ion-list>
-      <ion-button expand="full" color="success" (click)="add()">Añadir</ion-button>
+      <ion-button expand="full" color="success">Añadir</ion-button>
       </ion-content>
     </ng-template>
   </ion-modal>
