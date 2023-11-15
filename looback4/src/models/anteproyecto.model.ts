@@ -25,8 +25,13 @@ export class Anteproyecto extends Entity {
     type: 'string',
     required: true,
   })
-  iduser: string;
+  iduser?: string;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  estado?: string;
 
   constructor(data?: Partial<Anteproyecto>) {
     super(data);

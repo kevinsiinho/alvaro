@@ -3,12 +3,9 @@
     <ion-title>Anteproyecto</ion-title>
     <ion-button (click)="abrir()" fill="clear" class="btn-notifiacion position-relative">
       <ion-icon name="notifications"></ion-icon>
-      <ion-badge class="cant">2</ion-badge>
     </ion-button>
   <ion-list *ngIf="mostrar">
-    <ion-item>1.Action</ion-item>
-    <ion-item>2.Another action</ion-item>
-    <ion-item>3.Something else here</ion-item>
+    <ion-item *ngFor="let item of this.anteproyecto.comentarios">{{item}}</ion-item>
   </ion-list>
 <!--configuracion, salir, etc-->
 <ion-list class="btn-2">
@@ -26,13 +23,14 @@
 
 <ion-content class="list-form" [fullscreen]="true">
   <ion-list class="lista2">
-    <ion-item *ngFor="let item of items">
-      <ion-input label={{item.titulo}} labelPlacement="floating" placeholder="Escribe tu titulo"></ion-input>
+    <ion-item *ngFor="let item of this.items; let x=index">
+      <ion-button expand="full" color="danger"  (click)="eliminarItem(x)" *ngIf="this.eliminar===true">X</ion-button><ion-input label={{item.titulo}} labelPlacement="floating" [(ngModel)]="item.texto" placeholder="Escribe tu titulo"></ion-input>
     </ion-item>
     <ion-button expand="full" color="success" id="open-modal">Añadir item</ion-button>
-    <ion-button expand="full">Guardar</ion-button>
+    <ion-button expand="full" (click)="guardar()">Guardar</ion-button>
+    <ion-button expand="full" color="danger" (click)="MostrarEliminar()">Eliminar items</ion-button>
+    <ion-button expand="full" color="warning" (click)="setOpen(true)">Ayuda</ion-button>
   </ion-list>
-
 
   <ion-modal trigger="open-modal">
     <ng-template>
@@ -57,6 +55,49 @@
     </ng-template>
   </ion-modal>
 
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="partes">
+        <h2>Título del Proyecto:</h2>
+        <p>Proporciona un nombre descriptivo y conciso que represente el proyecto.</p>
+
+        <h2>Descripción del Proyecto:</h2>
+        <p>Brinda una visión general del proyecto, incluyendo su propósito, contexto y relevancia.</p>
+
+        <h2>Objetivos:</h2>
+        <p>Define metas específicas y medibles que deseas lograr con el proyecto.</p>
+
+        <h2>Justificación:</h2>
+        <p>Explica por qué el proyecto es necesario y cuáles son sus beneficios.</p>
+
+        <h2>Alcance:</h2>
+        <p>Establece los límites y las limitaciones del proyecto, qué se incluirá y qué no.</p>
+
+        <h2>Viabilidad:</h2>
+        <p>Evalúa si el proyecto es factible desde diferentes perspectivas.</p>
+
+        <h2>Recursos:</h2>
+        <p>Menciona los recursos necesarios para el proyecto, como personal, equipo, tecnología y financiamiento.</p>
+
+        <h2>Riesgos:</h2>
+        <p>Identifica los riesgos potenciales y propone estrategias de mitigación.</p>
+
+        <h2>Conclusiones:</h2>
+        <p>Resumen los aspectos clave del proyecto y recomiendan su viabilidad.</p>
+      </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 
 </ion-content>

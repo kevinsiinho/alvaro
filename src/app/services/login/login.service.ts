@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CapacitorHttp, HttpResponse } from '@capacitor/core';
+import { Preferences } from '@capacitor/preferences';
 import { Login } from 'src/app/clases/login/login';
 import { User } from 'src/app/clases/user/user';
 import { environment } from 'src/environments/environment';
@@ -61,4 +62,18 @@ export class LoginService {
     const response: HttpResponse = await CapacitorHttp.post(options);
     return response.status
   };
+
+  async Usuario(id:string){
+    const { value } = await Preferences.get({ key: 'token' });
+    const options = {
+      url: this.url+'/usuario/'+id,
+      headers: { "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + value
+      }
+    };
+
+  const response: HttpResponse = await CapacitorHttp.get(options);
+    console.log(response.data)
+  return response.data
+  }
 }

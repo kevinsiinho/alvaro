@@ -17,6 +17,7 @@ import {repository} from '@loopback/repository';
 import {
   get,
   getModelSchemaRef,
+  param,
   post,
   requestBody,
   SchemaObject,
@@ -151,5 +152,29 @@ export class LoginController {
     await this.userRepository.userCredentials(savedUser.id).create({password});
 
     return savedUser;
+  }
+
+
+
+
+  @get('/usuario/{id}', {
+    responses: {
+      '200': {
+        description: 'User',
+        content: {
+          'application/json': {
+            schema: {
+              schema: getModelSchemaRef(Usuario, {includeRelations: true}),
+            },
+          },
+        },
+      },
+    },
+  })
+
+  async findById(
+    @param.path.string('id') id: string,
+  ): Promise<User> {
+    return this.userRepository.findById(id);
   }
 }
