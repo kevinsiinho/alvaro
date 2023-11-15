@@ -17,6 +17,12 @@ export class AnteproyectoPage implements OnInit {
   public op!:string;
   @ViewChild(IonAlert) alert!: IonAlert;
   @ViewChild(IonModal) modal!: IonModal;
+  public item = new Items
+  public user = new User
+  public items:Items[]=[]
+  public anteproyecto= new Anteproyecto
+  public titulo!:string
+  public eliminar=false
   mostrar = false;
   selectedOption!: string;
   public alertButtons = ['Cerrar'];
@@ -29,6 +35,8 @@ export class AnteproyectoPage implements OnInit {
 
   constructor(
     private link:Router,
+    public anteproyectoservice:AnteproyectoService,
+    public loginservice:LoginService,
     private alertController: AlertController
     )
    { }
@@ -45,6 +53,36 @@ export class AnteproyectoPage implements OnInit {
 
 
 ngOnInit() {
+  this.anteproyectoservice.Unanteproyecto().then((res)=>{
+    this.anteproyecto=res
+    this.items=this.anteproyecto.items
+    this.loginservice.Usuario(this.anteproyecto.iduser).then((data)=>{
+      this.user=data
+        this.alertInputs = [
+          {
+            value: this.anteproyecto.id,
+            disabled: true
+          },
+          {
+            value: this.user.id,
+            disabled: true
+          },
+          {
+            value: this.user.nombre,
+            disabled: true
+          },
+          {
+            value: this.user.apellidos,
+            disabled: true
+          },
+          {
+            value: this.user.email,
+            disabled: true
+          }
+        ];
+    })
+  })
+
   }
 
   abrir() {
@@ -65,5 +103,60 @@ async  opciones(){
 cancel() {
   this.modal.dismiss(null, 'cancel');
 }
+
+add(){
+  if(this.titulo!="" && this.titulo!=null){
+    this.item.estado="Pendiente"
+    this.item.texto=""
+    this.item.titulo=this.titulo
+    this.items.push(this.item)
+    this.presentAlert("Añadido exitosamente")
+    this.titulo=""
+    this.item= new Items
+  }else{
+    this.presentAlert("Error, verifica")
+  }
+
+}
+
+async guardar(){
+  this.anteproyecto.items=this.items
+  if(typeof this.anteproyecto.id == 'undefined'){
+      this.OnQuien().then((id)=>{
+         //creo el usuario
+         this.anteproyecto.iduser=id
+         this.anteproyectoservice.Createanteproyecto(this.anteproyecto).then((res)=>{
+          this.presentAlert((res))
+       })
+      })
+  }else{
+   this.anteproyectoservice.UpdateAnteproyecto(this.anteproyecto).then((res)=>{
+    this.presentAlert((res))
+   })
+  }
+}
+
+async OnQuien() {
+    const { value } = await Preferences.get({ key: 'token' });
+    if (value) {
+      const res = await this.loginservice.Quien(value);
+      this.anteproyecto.iduser = res.data;
+
+    }
+    return this.anteproyecto.iduser;
+}
+
+MostrarEliminar(){
+  if(this.eliminar){
+    this.eliminar=false
+  }else if(!this.eliminar){
+    this.eliminar=true
+  }
+}
+
+eliminarItem(x:number){
+  this.items.splice(x,1)
+}
+
 
 }
