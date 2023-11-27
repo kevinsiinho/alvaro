@@ -138,9 +138,9 @@ autenticar(){
       this.loginService.Usuario(res.data).then((data)=>{
         //aquí hay que ver que tipo de rol es
         if(data.rol==1){
-          this.link.navigate(['anteproyecto'])
+          this.link.navigate(['anteproyecto/estudiante'])
         }else{
-          this.link.navigate(['lista-anteproyectos'])
+          this.link.navigate(['lista-anteproyectos/admin'])
         }
       })
       })

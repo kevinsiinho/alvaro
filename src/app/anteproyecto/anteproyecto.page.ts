@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, IonAlert, IonModal } from '@ionic/angular';
 import { Items } from '../clases/anteproyecto/items';
 import { Anteproyecto } from '../clases/anteproyecto/anteproyecto';
@@ -28,6 +28,7 @@ export class AnteproyectoPage implements OnInit {
   public alertButtons = ['Cerrar'];
   public alertInputs: any[] = [];
   isModalOpen = false;
+  public tipo:string="";
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
@@ -37,7 +38,8 @@ export class AnteproyectoPage implements OnInit {
     private link:Router,
     public anteproyectoservice:AnteproyectoService,
     public loginservice:LoginService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public router:ActivatedRoute
     )
    { }
 
@@ -53,11 +55,14 @@ export class AnteproyectoPage implements OnInit {
 
 
 ngOnInit() {
+  this.tipo=this.router.snapshot.paramMap.get('tipo')!
   this.anteproyectoservice.Unanteproyecto().then((res)=>{
     this.anteproyecto=res
     this.items=this.anteproyecto.items
     this.loginservice.Usuario(this.anteproyecto.iduser).then((data)=>{
-      this.user=data
+      if(data.rol==1){
+        if(this.tipo=="estudiante"){
+          this.user=data
         this.alertInputs = [
           {
             value: this.anteproyecto.id,
@@ -80,6 +85,15 @@ ngOnInit() {
             disabled: true
           }
         ];
+
+        }else{
+        this.link.navigate(['lista-anteproyectos/admin']);
+      }
+
+      }else{
+        this.link.navigate(['lista-anteproyectos/admin']);
+      }
+
     })
   })
 

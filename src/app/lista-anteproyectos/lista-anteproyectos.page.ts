@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonAlert, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Anteproyecto } from '../clases/anteproyecto/anteproyecto';
@@ -24,20 +24,24 @@ export class ListaAnteproyectosPage implements OnInit {
   public user= new User
   public alertButtons2 = ['OK'];
   public alertInputs2:any[]=[]
+  public tipo:string="";
 
   constructor(
     private link:Router,
     public anteproyectoservice:AnteproyectoService,
-    public loginservice:LoginService
+    public loginservice:LoginService,
+    public router:ActivatedRoute
     )
    { }
 
   ngOnInit(){
+    this.tipo=this.router.snapshot.paramMap.get('tipo')!
+    this.OnQuien(this.tipo)
     this.anteproyectoservice.todosAnteproyectos().then((res:Anteproyecto[])=>{
       this.anteproyectos=res
     })
 
-    this.OnQuien()
+
   }
 
   @ViewChild(IonModal) modal!: IonModal;
@@ -130,12 +134,14 @@ selectproyecto(id:string){
 
 
 
-async OnQuien() {
+async OnQuien(tipo:string) {
   const { value } = await Preferences.get({ key: 'token' });
   if (value) {
     const res = await this.loginservice.Quien(value);
     this.loginservice.Usuario(res.data).then((data)=>{
-      this.user=data
+    if(data.rol==2){
+      if(tipo=="admin"){
+        this.user=data
         this.alertInputs2 = [
           {
             value: this.user.id,
@@ -154,7 +160,14 @@ async OnQuien() {
             disabled: true
           }
         ];
-    })
+
+      }else{
+        this.link.navigate(['anteproyecto/estudiante']);
+      }
+    }else{
+      this.link.navigate(['anteproyecto/estudiante']);
+    }
+  })
 
 
   }
