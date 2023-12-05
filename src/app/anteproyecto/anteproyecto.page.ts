@@ -55,11 +55,13 @@ export class AnteproyectoPage implements OnInit {
 
 
 ngOnInit() {
+  this.OnQuien();
   this.tipo=this.router.snapshot.paramMap.get('tipo')!
-  this.anteproyectoservice.Unanteproyecto().then((res)=>{
+  this.anteproyectoservice.Unanteproyecto().then(async (res)=>{
     this.anteproyecto=res
     this.items=this.anteproyecto.items
-    this.loginservice.Usuario(this.anteproyecto.iduser).then((data)=>{
+    this.loginservice.Usuario(await this.OnQuien().then()).then((data)=>{
+      console.log(data)
       if(data.rol==1){
         if(this.tipo=="estudiante"){
           this.user=data
